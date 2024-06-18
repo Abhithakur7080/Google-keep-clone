@@ -22,9 +22,9 @@ const closedMixin = (theme) => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: `calc(${theme.spacing(5)} + 1px)`,
   [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(9)} + 1px)`,
+    width: `calc(${theme.spacing(7)} + 1px)`,
   },
 });
 
@@ -49,7 +49,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const SwipeDrawer = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleDrawer = () => {
     setOpen((prevState) => !prevState);
@@ -60,7 +60,7 @@ const SwipeDrawer = () => {
       <MainHeader handleDrawer={handleDrawer} open={open} />
       <Drawer variant="permanent" open={open}>
         <DrawerHeader></DrawerHeader>
-        <DrawerList />
+        <DrawerList open={open}/>
       </Drawer>
     </Box>
   );

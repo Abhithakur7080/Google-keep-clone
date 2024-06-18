@@ -1,5 +1,7 @@
 import { Box, ClickAwayListener, TextField, styled } from "@mui/material";
 import React, { useRef, useState } from "react";
+import { useDataContext } from "../../context/DataContext";
+import { v4 as uuid } from "uuid";
 
 const Container = styled(Box)`
   display: flex;
@@ -15,37 +17,63 @@ const Container = styled(Box)`
 
 const Form = () => {
   const [showTextField, setShowField] = useState(false);
-  const containerRef = useRef()
+  const [addNote, setAddNote] = useState({
+    id: uuid(),
+    heading: "",
+    text: "",
+  });
+
+  const { notes, setNotes } = useDataContext();
+  const containerRef = useRef();
 
   const toggleTextField = () => {
-    setShowField(true)
-    containerRef.current.style.minHeight = '70px'
-  }
+    setShowField(true);
+    containerRef.current.style.minHeight = "70px";
+  };
+  const handleClear = () => {
+    setAddNote({
+      id: uuid(),
+      heading: "",
+      text: "",
+    });
+  };
   const handleClickAway = () => {
-    setShowField(false)
-    containerRef.current.style.minHeight = '30px'
-  }
+    setShowField(false);
+    containerRef.current.style.minHeight = "30px";
+    if (addNote.heading || addNote.text) {
+      setNotes((prev) => [addNote, ...prev]);
+      handleClear();
+    }
+  };
+  const onTextChange = (e) => {
+    setAddNote({ ...addNote, [e.target.name]: e.target.value });
+  };
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
-        <Container ref={containerRef}>
-      {showTextField && (
+      <Container ref={containerRef}>
+        {showTextField && (
+          <TextField
+            value={addNote.heading}
+            placeholder="Title"
+            variant="standard"
+            InputProps={{ disableUnderline: true }}
+            style={{ marginBottom: 10 }}
+            onChange={(e) => onTextChange(e)}
+            name="heading"
+          />
+        )}
         <TextField
-          placeholder="Title"
+          value={addNote.text}
+          placeholder="Take a note"
+          multiline
           variant="standard"
+          maxRows={Infinity}
           InputProps={{ disableUnderline: true }}
-          style={{ marginBottom: 10 }}
-          
+          onClick={toggleTextField}
+          onChange={(e) => onTextChange(e)}
+          name="text"
         />
-      )}
-      <TextField
-        placeholder="Take a note"
-        multiline
-        variant="standard"
-        maxRows={Infinity}
-        InputProps={{ disableUnderline: true }}
-        onClick={toggleTextField}
-      />
-    </Container>
+      </Container>
     </ClickAwayListener>
   );
 };
