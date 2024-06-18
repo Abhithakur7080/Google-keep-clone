@@ -1,8 +1,8 @@
 import React from "react";
-import { LightbulbOutlined as Lightbulb } from "@mui/icons-material";
+import { ArchiveOutlined as Archive } from "@mui/icons-material";
 import { Box, Typography, styled } from "@mui/material";
 
-const Light = styled(Lightbulb)`
+const Arch = styled(Archive)`
   font-size: 120px;
   color: #c5c5c5;
 `;
@@ -17,13 +17,13 @@ const Container = styled(Box)`
   margin-top: 20vh;
 `;
 
-const EmptyNotes = () => {
+const EmptyArchives = () => {
   return (
     <Container>
-      <Light />
-      <Text>Notes you add appear here.</Text>
+      <Arch />
+      <Text>Notes you haven't archived.</Text>
     </Container>
   );
 };
 
-export default EmptyNotes;
+export default EmptyArchives;

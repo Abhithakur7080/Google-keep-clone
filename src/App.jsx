@@ -9,7 +9,6 @@ import DataProvider from "./context/DataContext";
 
 const App = () => {
   return (
-    <BrowserRouter>
       <Routes>
         <Route
           path="/"
@@ -25,7 +24,6 @@ const App = () => {
         </Route>
         <Route path="/login" element={<Login />} />
       </Routes>
-    </BrowserRouter>
   );
 };
 

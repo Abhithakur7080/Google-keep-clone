@@ -1,7 +1,8 @@
-import { Box, ClickAwayListener, TextField, styled } from "@mui/material";
 import React, { useRef, useState } from "react";
+import { Box, ClickAwayListener, TextField, styled } from "@mui/material";
 import { useDataContext } from "../../context/DataContext";
 import { v4 as uuid } from "uuid";
+import { useFirebase } from "../../firebase";
 
 const Container = styled(Box)`
   display: flex;
@@ -23,7 +24,8 @@ const Form = () => {
     text: "",
   });
 
-  const { notes, setNotes } = useDataContext();
+  const { setNotes, notes } = useDataContext();
+  const { updateDataFromFirestore, currentUser } = useFirebase();
   const containerRef = useRef();
 
   const toggleTextField = () => {
@@ -37,11 +39,14 @@ const Form = () => {
       text: "",
     });
   };
-  const handleClickAway = () => {
+  const handleClickAway = async () => {
     setShowField(false);
     containerRef.current.style.minHeight = "30px";
     if (addNote.heading || addNote.text) {
       setNotes((prev) => [addNote, ...prev]);
+      await updateDataFromFirestore("users", currentUser.uid, {
+        notes: [addNote, ...notes],
+      });
       handleClear();
     }
   };

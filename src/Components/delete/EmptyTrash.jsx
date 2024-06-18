@@ -1,8 +1,8 @@
 import React from "react";
-import { LightbulbOutlined as Lightbulb } from "@mui/icons-material";
+import { DeleteOutlined as Delete } from "@mui/icons-material";
 import { Box, Typography, styled } from "@mui/material";
 
-const Light = styled(Lightbulb)`
+const Bin = styled(Delete)`
   font-size: 120px;
   color: #c5c5c5;
 `;
@@ -17,13 +17,13 @@ const Container = styled(Box)`
   margin-top: 20vh;
 `;
 
-const EmptyNotes = () => {
+const EmptyTrash = () => {
   return (
     <Container>
-      <Light />
-      <Text>Notes you add appear here.</Text>
+      <Bin />
+      <Text>Notes you haven't deleted yet.</Text>
     </Container>
   );
 };
 
-export default EmptyNotes;
+export default EmptyTrash;
