@@ -17,12 +17,13 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD7gYUSYsfwIXxLwtlajwwctZowsd1C36A",
-  authDomain: "test-7610c.firebaseapp.com",
-  projectId: "test-7610c",
-  storageBucket: "test-7610c.appspot.com",
-  messagingSenderId: "840567987405",
-  appId: "1:840567987405:web:1fe1cac1c289d702849d84",
+  apiKey: import.meta.env.VITE_APP_API_KEY,
+  authDomain: import.meta.env.VITE_APP_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_APP_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_APP_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_APP_MESSAGE_SENDER_ID,
+  appId: import.meta.env.VITE_APP_APP_ID,
+  databaseURL: import.meta.env.VITE_APP_DATABASE_URL,
 };
 
 const app = initializeApp(firebaseConfig);
